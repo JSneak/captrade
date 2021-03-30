@@ -19,7 +19,12 @@ export const Navigator = () => {
 
     const [isSignedIn, setIsSignedIn] = useState(false)
 
+    const test = () => {
+        console.log("Connections")
+    }
+
     const authCallback = (status) => {
+        console.log("Tony")
         setIsSignedIn(status);
     }
 
@@ -65,9 +70,9 @@ export const Navigator = () => {
                         headerShown: false
                     }}
                  >
-                    <Stack.Screen name='Landing' component={Landing}/>
-                    <Stack.Screen name="Login" component={Login} onAuthChange={authCallback}/>
-                    <Stack.Screen name="Sign Up" component={Temp} onAuthChange={authCallback}/>
+                    <Stack.Screen name='Landing' component={Landing} />
+                    <Stack.Screen name="Login" component={Login} initialParams={{setIsSignedIn:setIsSignedIn}}/>
+                    <Stack.Screen name="Sign Up" component={Temp} initialParams={{setIsSignedIn:setIsSignedIn}}/>
                     <Stack.Screen name='Recover Password' component={Temp} />
                 </Stack.Navigator>
             </NavigationContainer>

@@ -5,7 +5,7 @@ import { globalStyles } from '../styles/global'
 import { Ionicons, MaterialCommunityIcons   } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Login = ({ onAuthChange }) => {
+const Login = ({ route }) => {
 
     const navigation = useNavigation();
     const [name, onChangeName] = React.useState(null);
@@ -13,7 +13,7 @@ const Login = ({ onAuthChange }) => {
     const [email, onChangeEmail] = React.useState(null);
 
     const handleOnClick = () => {
-        onAuthChange(true);
+        route.params.setIsSignedIn(true);
     }
 
     return(
@@ -58,7 +58,7 @@ const Login = ({ onAuthChange }) => {
                         <TouchableOpacity
                             style={styles.btnBlue}
                             activeOpacity={.5}
-                            onPress={() => {handleOnClick()}}
+                            onPress={() => handleOnClick()}
                         >
                             <Text style={styles.btnTextCreate}> Create an account </Text>
                         </TouchableOpacity>
@@ -82,18 +82,18 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'red'
+        // backgroundColor: 'red'
     },
     top: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'blue'
+        // backgroundColor: 'blue'
     },
     bottom: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: 'yellow'
+        // backgroundColor: 'yellow'
     },
     formContainer: {
         flexDirection: 'column',
