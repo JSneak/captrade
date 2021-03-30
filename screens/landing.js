@@ -18,7 +18,7 @@ const Landing = () => {
                 <TouchableOpacity
                     style={styles.btnBlue}
                     activeOpacity={.5}
-                    // onPress={() => }
+                    onPress={() => navigation.push('Sign Up')}
                 >
                     <Text style={styles.btnTextCreate}> Create an account </Text>
                 </TouchableOpacity>

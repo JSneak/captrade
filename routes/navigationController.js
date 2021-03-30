@@ -8,6 +8,9 @@ import Temp from '../screens/temp';
 
 import Landing from '../screens/landing'
 import Login from '../screens/login'
+import CreateAnAccount from '../screens/createAnAccount'
+
+import Home from '../screens/home'
 
 
 const Tab = createBottomTabNavigator();
@@ -56,7 +59,7 @@ export const Navigator = () => {
                     }
                     }}
                 >
-                    <Tab.Screen name="Home" component={Temp} />
+                    <Tab.Screen name="Home" component={Home} />
                     <Tab.Screen name="Wallet" component={Temp} />
                     <Tab.Screen name="Actions" component={Temp} />
                     <Tab.Screen name="Prices" component={Temp} />
@@ -72,7 +75,7 @@ export const Navigator = () => {
                  >
                     <Stack.Screen name='Landing' component={Landing} />
                     <Stack.Screen name="Login" component={Login} initialParams={{setIsSignedIn:setIsSignedIn}}/>
-                    <Stack.Screen name="Sign Up" component={Temp} initialParams={{setIsSignedIn:setIsSignedIn}}/>
+                    <Stack.Screen name="Sign Up" component={CreateAnAccount} initialParams={{setIsSignedIn:setIsSignedIn}}/>
                     <Stack.Screen name='Recover Password' component={Temp} />
                 </Stack.Navigator>
             </NavigationContainer>

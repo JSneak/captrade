@@ -5,7 +5,7 @@ import { globalStyles } from '../styles/global'
 import { Ionicons, MaterialCommunityIcons   } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Login = ({ route }) => {
+const CreateAnAccount = ({ route }) => {
 
     const navigation = useNavigation();
     const [name, onChangeName] = React.useState(null);
@@ -23,6 +23,15 @@ const Login = ({ route }) => {
             </View>
             <View style={styles.center}>
                 <View style={styles.formContainer}>
+                    <View style={styles.formRow} >
+                        <Ionicons style={styles.icon} name="person-outline" size={40} color="black" />
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={onChangeName}
+                            value={name}
+                            placeholder="Name"
+                        />
+                    </View>
                     <View style={styles.formRow} >
                     <Ionicons style={styles.icon} name="lock-closed-outline" size={40} color="black" />
                         <TextInput
@@ -51,13 +60,13 @@ const Login = ({ route }) => {
                             activeOpacity={.5}
                             onPress={() => handleOnClick()}
                         >
-                            <Text style={styles.btnTextCreate}> Login </Text>
+                            <Text style={styles.btnTextCreate}> Create an account </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.otherRow}>
-                        <Text> Forget your password? </Text>
+                        <Text> By creating an account, you agree to our </Text>
                         <TouchableOpacity>
-                            <Text style={styles.clickableText}> Press here to recover your account. </Text>
+                            <Text style={styles.clickableText}> Terms and Conditions </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -66,7 +75,7 @@ const Login = ({ route }) => {
     )
 }
 
-export default Login
+export default CreateAnAccount
 
 const styles = StyleSheet.create({
     center: {
