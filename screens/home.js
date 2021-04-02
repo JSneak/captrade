@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { globalStyles } from '../styles/global'
 
 import EmptyWatchlist from '../components/emptyWatchlist'
+import EmptyConnect from '../components/emptyConnect'
 
 const Home = () => {
 
@@ -13,22 +14,27 @@ const Home = () => {
     const DATA = [
         {
             title: "Header",
-            data: []
+            empty: true,
+            data: ['']
         },
         {
           title: "Watchlist",
-          data: ['empty']
+          empty: true,
+          data: ['']
         },
         {
           title: "Connect",
-          data: ["French Fries", "Onion Rings", "Fried Shrimps"]
+          empty: true,
+          data: ['']
         },
         {
           title: "Top movers",
+          empty: false,
           data: ["Water", "Coke", "Beer"]
         },
         {
           title: "Rewards",
+          empty: false,
           data: ["Cheese Cake", "Ice Cream","1","2","3","4","5","6","7","8","9","10","11","12","13"]
         },
       ];
@@ -52,12 +58,41 @@ const Home = () => {
         }
     }
 
-    const listParser = (item) => {
-        console.log("item" + item);
-        switch (item) {
-            case 'empty':
+    const listParser = (item, title, empty) => {
+        console.log("item: " + item);
+        console.log("title: " + title);
+        console.log("Empty: " + empty);
+        console.log("------------")
+
+        if(empty === true) {
+            switch (title) {
+                case 'Watchlist':
+                return (
+                    <EmptyWatchlist />
+                )
+                case 'Connect':
+                return (
+                    <EmptyConnect />
+                )
+                default:
+                return (
+                    <Item title={item} />
+                )
+            }
+        }
+
+        switch (title) {
+            case 'Watchlist':
             return (
-                <EmptyWatchlist />
+                <Item title={item} />
+            )
+            case 'Connect':
+            return (
+                <Item title={item} />
+            )
+            case 'Top Movers':
+            return (
+                <Item title={item} />
             )
             default:
             return (
@@ -83,7 +118,7 @@ const Home = () => {
                 style={styles.sectionList}
                 sections={DATA}
                 keyExtractor={(item, index) => item + index}
-                renderItem={({ item }) =>listParser(item)}
+                renderItem={({item, section: { title, empty}}) =>listParser(item, title, empty)}
                 renderSectionHeader={({ section: { title } }) => componentPicker(title)}
             />
         </SafeAreaView>
