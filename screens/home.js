@@ -1,73 +1,92 @@
 import * as React from 'react';
-import { Text, View, Image, StyleSheet, TextInput, FlatList } from 'react-native';
+import { Text, View, Image, StyleSheet, TextInput, SectionList, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { globalStyles } from '../styles/global'
-import { Ionicons, MaterialCommunityIcons   } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import EmptyWatchlist from '../components/emptyWatchlist'
 
 const Home = () => {
 
     const navigation = useNavigation();
 
+
     const DATA = [
         {
-          id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-          title: 'First Item',
+            title: "Header",
+            data: []
         },
         {
-          id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-          title: 'Second Item',
+          title: "Watchlist",
+          data: ['empty']
         },
         {
-          id: '58694a0f-3da1-471f-bd96-145571e29d72',
-          title: 'Third Item',
+          title: "Connect",
+          data: ["French Fries", "Onion Rings", "Fried Shrimps"]
+        },
+        {
+          title: "Top movers",
+          data: ["Water", "Coke", "Beer"]
+        },
+        {
+          title: "Rewards",
+          data: ["Cheese Cake", "Ice Cream","1","2","3","4","5","6","7","8","9","10","11","12","13"]
         },
       ];
 
-    const Item = ({ title }) => (
-        <View style={styles.item}>
-            <Text style={styles.title}>{title}</Text>
-        </View>
-    );
+    const componentPicker = (title) => {
+        switch (title) {
+            case 'Header':
+            return (
+                <View style={styles.top}>
+                    <Image source={require('../assets/homeImage.png')} />
+                    <Text style={styles.header}>Welcome to CapTrade!</Text>
+                    <Text>Get started message</Text>
+                </View>
+            )
+            default:
+            return (
+                <View style={styles.sectionHeader}>
+                    <Text style={styles.header}>{title}</Text>
+                </View>
+            )
+        }
+    }
 
-    const renderItem = ({ item }) => (
-        <Item title={item.title} />
+    const listParser = (item) => {
+        console.log("item" + item);
+        switch (item) {
+            case 'empty':
+            return (
+                <EmptyWatchlist />
+            )
+            default:
+            return (
+                <Item title={item} />
+            )
+        }
+    }
+
+
+
+
+    Item = ({ title }) => (
+        <View style={styles.item}>
+        <Text style={styles.title}>{title}</Text>
+        </View>
     );
 
     return(
-        <View style={globalStyles.container}>
-            {/* Rework this so it's a flatlist in a flatlist 
-            https://stackoverflow.com/questions/61609765/can-i-use-flatlist-in-flatlist-react-native*/}
-            <View style={styles.top}>
-                <Image source={require('../assets/homeImage.png')} />
-                <Text>Welcome to CapTrade!</Text>
-                <Text>Get started message</Text>
-            </View>
-            <View style={styles.section}>
-                <Text>Watchlist</Text>
-                <FlatList 
-                    data={DATA}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                />
-            </View>
-            <View style={styles.section}>
-                <Text>Connect</Text>
-                <FlatList 
-                    data={DATA}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                />
-            </View>
-            <View style={styles.section}>
-                <Text>Top movers</Text>
-                <FlatList 
-                    data={DATA}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                />
-            </View>
-        </View>
+        <SafeAreaView style={globalStyles.container} >
+                {/* Rework this so it's a section list
+                https://reactnative.dev/docs/sectionlist*/}
+            <SectionList
+                style={styles.sectionList}
+                sections={DATA}
+                keyExtractor={(item, index) => item + index}
+                renderItem={({ item }) =>listParser(item)}
+                renderSectionHeader={({ section: { title } }) => componentPicker(title)}
+            />
+        </SafeAreaView>
     )
 }
 
@@ -81,15 +100,30 @@ const styles = StyleSheet.create({
         // backgroundColor: 'red'
     },
     top: {
+        paddingTop: 60,
+        paddingBottom: 60,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        // backgroundColor: 'blue'
+        backgroundColor: '#F7F7F7',
     },
     section: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    sectionHeader: {
+        flex: 1,
+        alignItems: 'flex-start',
+        paddingLeft: 15
+    },
+    header: {
+        fontSize: 25,
+        fontWeight: 'bold'
+        // backgroundColor: "#fff"
+    },
+    sectionList: {
+        backgroundColor: '#F7F7F7'
     }
 })
 
