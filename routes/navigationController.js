@@ -38,15 +38,15 @@ export const Navigator = () => {
                 <Tab.Navigator
                     screenOptions={({ route }) => ({
                         tabBarIcon: () => {
-                            if (route.name === 'Discover') {
+                            if (route.name === 'Home') {
                                 return <AntDesign name="Trophy" size={36} color="black" />
-                            } else if (route.name === 'Settings') {
+                            } else if (route.name === 'Wallet') {
                                 return <AntDesign name="user" size={36} color="black" />
                             } else if (route.name === 'Standouts') {
-                                return <AntDesign name="staro" size={36} color="black" />
-                            } else if (route.name === 'Matches') {
+                                return <AntDesign name="Actions" size={36} color="black" />
+                            } else if (route.name === 'Prices') {
                                 return <AntDesign name="inbox" size={36} color="black" />
-                            } else if (route.name === 'Likes') {
+                            } else if (route.name === 'Settings') {
                                 return <AntDesign name="hearto" size={36} color="black" />
                             }
                         },
